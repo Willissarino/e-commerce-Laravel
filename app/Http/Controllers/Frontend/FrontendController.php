@@ -18,6 +18,19 @@ class FrontendController extends Controller
         return view('homepage',compact('category','featured_product'));
     }
 
+    // Get Category API
+    public function getCategoryAPI()
+    {
+        $category = Category::where('status','0')->take(5)->get(); //Take 5 first categories
+        return $category;
+    }
+    // Get Featured API
+    public function getFeaturedAPI()
+    {
+        $featured_product = Product::where('trending','1')->take(4)->get();
+        return $featured_product;
+    }
+
     public function viewCategory($slug)
     {
         if(Category::where('slug',$slug)->exists())
@@ -30,6 +43,23 @@ class FrontendController extends Controller
         {
             Alert::toast('Slug does not exists', 'error');
             return redirect('/');
+        }
+    }
+
+    // Get Category API
+    public function viewCategoryAPI($slug)
+    {
+        if(Category::where('slug',$slug)->exists())
+        {
+            $category = Category::where('slug',$slug)->first();
+            $products = Product::where('cate_id',$category->id)->where('status','0')->get();
+            return $products;
+        }
+        else
+        {
+            return [
+                "message" => 'No such category exists'
+            ];
         }
     }
 
@@ -54,5 +84,13 @@ class FrontendController extends Controller
     {
         $product = Product::where('status','0')->get();
         return view('user.allproduct', compact('product'));
+    }
+
+    // Get all product API
+    public function viewAllProductAPI()
+    {
+        $product = Product::where('status','0')->get();
+        return $product;
+
     }
 }

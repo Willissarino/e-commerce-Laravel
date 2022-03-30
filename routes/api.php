@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthControllerAPI;
 use App\Http\Controllers\AdminAuthControllerAPI;
+use App\Http\Controllers\Frontend\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,18 @@ Route::post('register', [AuthControllerAPI::class, 'registerAPI']);
 // Login
 Route::post('login', [AuthControllerAPI::class, 'loginAPI']);
 
+// Product List
+// Get featured category
+Route::get('category', [FrontendController::class, 'getCategoryAPI']);
+// Get specific category
+Route::get('category/{slug}', [FrontendController::class, 'viewCategoryAPI']);
+
+
+// Get featured product
+Route::get('featured-product', [FrontendController::class, 'getFeaturedAPI']);
+// Get all available product
+Route::get('product', [FrontendController::class, 'viewAllProductAPI']);
+
 // Authenticated Group Only
 Route::group(['middleware' => ['auth:sanctum']], function()
 {
@@ -30,7 +43,7 @@ Route::group(['middleware' => ['auth:sanctum']], function()
     {
         return auth()->user();
     });
-    
+
     // Logout (User)
     Route::post('logout', [AuthControllerAPI::class, 'logoutAPI']);
 
