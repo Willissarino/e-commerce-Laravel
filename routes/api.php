@@ -28,12 +28,18 @@ Route::post('login', [AuthControllerAPI::class, 'loginAPI']);
 Route::get('category', [FrontendController::class, 'getCategoryAPI']);
 // Get specific category
 Route::get('category/{slug}', [FrontendController::class, 'viewCategoryAPI']);
+// Get specific product
+Route::get('category/{cate_slug}/{prod_slug}', [FrontendController::class, 'viewProductAPI']);
+
 
 
 // Get featured product
 Route::get('featured-product', [FrontendController::class, 'getFeaturedAPI']);
 // Get all available product
 Route::get('product', [FrontendController::class, 'viewAllProductAPI']);
+// Get specific product
+Route::get('product/{cate_slug}/{prod_slug}', [FrontendController::class, 'viewProductAPI']);
+
 
 // Authenticated Group Only
 Route::group(['middleware' => ['auth:sanctum']], function()

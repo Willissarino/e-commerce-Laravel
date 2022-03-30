@@ -52,8 +52,15 @@ class FrontendController extends Controller
         if(Category::where('slug',$slug)->exists())
         {
             $category = Category::where('slug',$slug)->first();
+            $cate_slug = Category::where('slug',$slug)->value('slug');
             $products = Product::where('cate_id',$category->id)->where('status','0')->get();
-            return $products;
+
+            $data = [
+                "prod_slug" => $cate_slug,
+                "products_details" => $products,
+            ];
+
+            return response()->json($data);
         }
         else
         {
@@ -80,6 +87,25 @@ class FrontendController extends Controller
         }
     }
 
+    // View specific product API
+    public function viewProductAPI($cate_slug,$prod_slug)
+    {
+        if(Category::where('slug',$cate_slug)->exists())
+        {
+            if(Product::where('slug',$prod_slug)->exists())
+            {
+                $products = Product::where('slug',$prod_slug)->first();
+                return $products;
+            }
+            else
+            {
+                return [
+                    "message" => 'No such product exists'
+                ];
+            }
+        }
+    }
+
     public function viewAllProduct()
     {
         $product = Product::where('status','0')->get();
@@ -91,6 +117,5 @@ class FrontendController extends Controller
     {
         $product = Product::where('status','0')->get();
         return $product;
-
     }
 }
