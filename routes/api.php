@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthControllerAPI;
 use App\Http\Controllers\AdminAuthControllerAPI;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Administrator\CategoryController;
+use App\Http\Controllers\Administrator\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +62,7 @@ Route::group(['middleware' => ['auth:sanctum']], function()
 // Public route (Admin)
 // Login
 Route::post('admin/login', [AdminAuthControllerAPI::class, 'loginAPI']);
+// Category
+Route::get('admin/category', [CategoryController::class, 'categoryAPI']);
+// Product
+Route::get('admin/product', [ProductController::class, 'productAPI']);

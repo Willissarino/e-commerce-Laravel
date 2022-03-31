@@ -17,6 +17,13 @@ class ProductController extends Controller
         return view('administrator.product.index', compact('products'));
     }
 
+    // View all product API
+    public function productAPI()
+    {
+        $products = Product::all();
+        return response()->json($products);
+    }
+
     public function create()
     {
         $category = Category::all();

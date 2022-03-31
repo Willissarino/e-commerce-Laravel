@@ -17,6 +17,13 @@ class CategoryController extends Controller
         return view('administrator.category.index', compact('category'));
     }
 
+    // View all category API
+    public function categoryAPI()
+    {
+        $category = Category::all();
+        return response()->json($category);
+    }
+
     public function create()
     {
         return view('administrator.category.add');
