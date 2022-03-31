@@ -27,7 +27,7 @@ class FrontendController extends Controller
     // Get Featured API
     public function getFeaturedAPI()
     {
-        $featured_product = Product::where('trending','1')->take(4)->get();
+        $featured_product = Product::where('trending','1')->take(4)->with(['category'])->get();
         return $featured_product;
     }
 
