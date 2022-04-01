@@ -64,5 +64,10 @@ Route::group(['middleware' => ['auth:sanctum']], function()
 Route::post('admin/login', [AdminAuthControllerAPI::class, 'loginAPI']);
 // Category
 Route::get('admin/category', [CategoryController::class, 'categoryAPI']);
+// Add category
+Route::post('admin/category/add', [CategoryController::class, 'addCategoryAPI']);
+
 // Product
 Route::get('admin/product', [ProductController::class, 'productAPI']);
+// Add Product
+Route::post('admin/product/add', [ProductController::class, 'addProductAPI']);

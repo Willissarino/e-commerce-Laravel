@@ -55,6 +55,24 @@ class CategoryController extends Controller
         return redirect(route('administrator.categories'));
     }
 
+    // Add new category API
+    public function addCategoryAPI(Request $request)
+    {
+        $category = new Category();
+        
+        $category->name = $request->input('name');
+        $category->slug = $request->input('slug');
+        $category->description = $request->input('description');
+        $category->status = $request->input('status') == TRUE ? '1':'0';
+        $category->popular = $request->input('popular') == TRUE ? '1':'0';
+        $category->meta_title = $request->input('meta_title');
+        $category->meta_description = $request->input('meta_description');
+        $category->meta_keywords = $request->input('meta_keywords');
+        $category->image = $request->input('image');
+        $category->save();
+        return response()->json($category);
+    }
+
     // Return data in category table based on the $id
     public function edit($id)
     {
