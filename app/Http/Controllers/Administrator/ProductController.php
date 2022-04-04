@@ -89,6 +89,13 @@ class ProductController extends Controller
         return view('administrator.product.edit', compact('products'));
     }
 
+    // Edit product API
+    public function editProductAPI(Request $request, $id)
+    {
+        $products = Product::find($id);
+        return response()->json($products);
+    }
+
     public function update(Request $request, $id)
     {
         $products = Product::find($id);
@@ -123,6 +130,29 @@ class ProductController extends Controller
         return redirect(route('administrator.product'));
     }
 
+    // Update product API
+    public function updateProductAPI(Request $request, $id)
+    {
+        $products = Product::find($id);
+        $products->cate_id = $request->input('cate_id');
+        $products->name = $request->input('name');
+        $products->slug = $request->input('slug');
+        $products->small_description = $request->input('small_description');
+        $products->description = $request->input('description');
+        $products->original_price = $request->input('original_price');
+        $products->selling_price = $request->input('selling_price');
+        $products->qty = $request->input('qty');
+        $products->tax = $request->input('tax');
+        $products->status = $request->input('status') == TRUE ? '1':'0';
+        $products->trending = $request->input('trending') == TRUE ? '1':'0';
+        $products->meta_title = $request->input('meta_title');
+        $products->meta_description = $request->input('meta_description');
+        $products->meta_keywords = $request->input('meta_keywords');
+        $products->image = $request->input('image');
+        $products->update();
+        return response()->json($products);
+    }
+
     public function destroy($id)
     {
         $products = Product::find($id);
@@ -137,6 +167,21 @@ class ProductController extends Controller
         $products->delete();
         Alert::toast('Product Deleted', 'success');
         return redirect(route('administrator.product'));
+    }
+
+    // Delete product API
+    public function deleteProductAPI($id)
+    {
+       if (Product::find($id))
+       {
+        $products = Product::find($id);
+        $products->delete();
+       }
+       else
+       {
+        return response()->json(['error' => 'Product Not Found']);
+       }
+        return response()->json($products);
     }
 
 

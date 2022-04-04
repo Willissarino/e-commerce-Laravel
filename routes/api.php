@@ -66,8 +66,20 @@ Route::post('admin/login', [AdminAuthControllerAPI::class, 'loginAPI']);
 Route::get('admin/category', [CategoryController::class, 'categoryAPI']);
 // Add category
 Route::post('admin/category/add', [CategoryController::class, 'addCategoryAPI']);
+// Edit category (return data in category table based on id)
+Route::get('admin/category/edit/{id}', [CategoryController::class, 'editCategoryAPI']);
+// Update category
+Route::put('admin/category/update/{id}', [CategoryController::class, 'updateCategoryAPI']);
+// Delete category
+Route::delete('admin/category/delete/{id}', [CategoryController::class, 'deleteCategoryAPI']);
 
 // Product
 Route::get('admin/product', [ProductController::class, 'productAPI']);
 // Add Product
 Route::post('admin/product/add', [ProductController::class, 'addProductAPI']);
+// Edit Product (return data in product table based on id)
+Route::get('admin/product/edit/{id}', [ProductController::class, 'editProductAPI']);
+// Update Product
+Route::put('admin/product/update/{id}', [ProductController::class, 'updateProductAPI']);
+// Delete Product
+Route::delete('admin/product/delete/{id}', [ProductController::class, 'deleteProductAPI']);

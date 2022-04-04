@@ -80,6 +80,13 @@ class CategoryController extends Controller
         return view('administrator.category.edit', compact('category'));
     }
 
+    // Return data in category table based on the $id API
+    public function editCategoryAPI($id)
+    {
+        $category = Category::find($id);
+        return response()->json($category);
+    }
+
     // User the $id to identify the category
     public function update(Request $request, $id)
     {
@@ -110,6 +117,24 @@ class CategoryController extends Controller
         return redirect(route('administrator.categories'));
     }
 
+    // Update category API
+    public function updateCategoryAPI(Request $request, $id)
+    {
+        $category = Category::find($id);
+        $category->name = $request->input('name');
+        $category->slug = $request->input('slug');
+        $category->description = $request->input('description');
+        $category->status = $request->input('status') == TRUE ? '1':'0';
+        $category->popular = $request->input('popular') == TRUE ? '1':'0';
+        $category->meta_title = $request->input('meta_title');
+        $category->meta_description = $request->input('meta_description');
+        $category->meta_keywords = $request->input('meta_keywords');
+        $category->image = $request->input('image');
+        $category->update();
+        return response()->json($category);
+    }
+
+    // Delete a category
     public function destroy($id)
     {
         $category = Category::find($id);
@@ -124,5 +149,21 @@ class CategoryController extends Controller
         $category->delete();
         Alert::toast('Category Deleted', 'success');
         return redirect(route('administrator.categories'));
+    }
+
+    // Delete a category API
+    public function deleteCategoryAPI($id)
+    {
+        if (Category::find($id))
+        {
+            $category = Category::find($id);
+            $category->delete();    
+        }
+        else
+        {
+            return response()->json(['error' => 'Category Not Found']);
+        }
+        
+        return response()->json($category);
     }
 }
