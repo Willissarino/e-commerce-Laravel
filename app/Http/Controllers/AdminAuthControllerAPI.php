@@ -24,7 +24,7 @@ class AdminAuthControllerAPI extends Controller
         $admin = Administrator::whereEmail($request->email)->first();
 
         return $this->success([
-            'access_token' => $admin->createToken('API Token')->plainTextToken,
+            'access_token' => $admin->createToken('APIs Token', ['role:Admin'])->plainTextToken,
             'token_type' => 'Bearer',
             'message' => 'Logged in as Administrator',
         ]);

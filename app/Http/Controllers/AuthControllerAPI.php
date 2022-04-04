@@ -26,7 +26,8 @@ class AuthControllerAPI extends Controller
         ]);
 
         return $this->success([
-            'token' => $user->createToken('API Token')->plainTextToken
+            'user' => $user,
+            'token' => $user->createToken('APIs token', ['role:user'])->plainTextToken
         ]);
     }
 
@@ -43,7 +44,7 @@ class AuthControllerAPI extends Controller
         }
 
         return $this->success([
-            'access_token' => $request->user()->createToken('API Token')->plainTextToken,
+            'access_token' => $request->user()->createToken('APIs token', ['role:user'])->plainTextToken,
             'token_type' => 'Bearer',
         ]);
     }
