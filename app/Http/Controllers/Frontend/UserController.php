@@ -20,6 +20,14 @@ class UserController extends Controller
         return view('dashboard', compact('orders','user_details'));
     }
 
+    // User Dashboard APIs
+    public function userDashboardAPI()
+    {
+        $orders = Order::where('user_id', Auth::id())->get();
+        $user_details = User::where('id',Auth::id())->first();
+        return response()->json(['orders' => $orders, 'user_details' => $user_details]);
+    }
+
     public function updateUserDetail(Request $request)
     {
         if(Auth::check())

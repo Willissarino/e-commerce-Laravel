@@ -49,10 +49,9 @@ Route::get('product/{cate_slug}/{prod_slug}', [FrontendController::class, 'viewP
 |
 |--------------------------------------------------------------------------
 */
-// Register a new user
 Route::post('register', [AuthControllerAPI::class, 'registerAPI']);
-// Login
 Route::post('login', [AuthControllerAPI::class, 'loginAPI']);
+
 // Authenticated user routes
 Route::middleware(['auth:sanctum', 'type.user'])->group(function () {
     // Fetch authenticated user
@@ -61,7 +60,7 @@ Route::middleware(['auth:sanctum', 'type.user'])->group(function () {
         return auth()->user();
     });
     // User Dashboard
-    Route::get('dashboard', [UserController::class, 'index']);
+    Route::get('dashboard', [UserController::class, 'userDashboardAPI']);
 
     // Logout (User)
     Route::post('logout', [AuthControllerAPI::class, 'logoutAPI']);
