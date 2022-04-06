@@ -27,8 +27,9 @@ class AuthControllerAPI extends Controller
 
         return $this->success([
             'user' => $user,
-            'token' => $user->createToken('APIs token', ['role:user'])->plainTextToken
+            'access_token' => $user->createToken('mobile', ['role:user'])->plainTextToken
         ]);
+
     }
 
     public function loginAPI(Request $request)
@@ -43,9 +44,18 @@ class AuthControllerAPI extends Controller
             return $this->error('Credentials does not match',401);
         }
 
-        return $this->success([
+        $user = Auth::user();
+
+        /* return $this->success([
             'access_token' => $request->user()->createToken('APIs token', ['role:user'])->plainTextToken,
-            'token_type' => 'Bearer',
+            'user_details' => $user,
+            'role' => 'User',
+        ]); */
+
+        return response()->json([
+            'name' => $user->name,
+            'access_token' => $request->user()->createToken('mobile', ['role:user'])->plainTextToken,
+            'roles' => 'User',
         ]);
     }
 

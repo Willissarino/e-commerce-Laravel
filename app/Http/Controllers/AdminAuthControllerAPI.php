@@ -18,15 +18,24 @@ class AdminAuthControllerAPI extends Controller
             'password' => $request->password,
         ])) 
         {
-            return $this->error('Credentials does not match',401);
+            /* return $this->error('Credentials does not match',401); */
+            return response()->json([
+                'Error' => 'Credentials does not match',
+            ],401);
         }
 
         $admin = Administrator::whereEmail($request->email)->first();
 
-        return $this->success([
+        /* return $this->success([
             'access_token' => $admin->createToken('APIs Token', ['role:Admin'])->plainTextToken,
             'token_type' => 'Bearer',
             'message' => 'Logged in as Administrator',
+        ]); */
+
+        return response()->json([
+            'name' => $admin->name,
+            'access_token' => $admin->createToken('mobile', ['role:admin'])->plainTextToken,
+            'roles' => 'Admin',
         ]);
     }
 

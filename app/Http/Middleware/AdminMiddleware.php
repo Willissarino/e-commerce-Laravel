@@ -16,7 +16,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->tokenCan('role:Admin')) {
+        if (auth()->user()->tokenCan('role:admin')) {
             return $next($request);
         }
 

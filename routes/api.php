@@ -63,7 +63,7 @@ Route::middleware(['auth:sanctum', 'type.user'])->group(function () {
     Route::get('dashboard', [UserController::class, 'userDashboardAPI']);
 
     // Logout (User)
-    Route::post('logout', [AuthControllerAPI::class, 'logoutAPI']);
+    Route::get('logout', [AuthControllerAPI::class, 'logoutAPI']);
 });
 
 /*
