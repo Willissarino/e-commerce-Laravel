@@ -61,6 +61,9 @@ Route::middleware(['auth:sanctum', 'type.user'])->group(function () {
     });
     // User Dashboard
     Route::get('dashboard', [UserController::class, 'userDashboardAPI']);
+    // Update user detail
+    Route::post('update-user-detail', [UserController::class, 'updateUserDetailAPI']);
+
 
     // Logout (User)
     Route::get('logout', [AuthControllerAPI::class, 'logoutAPI']);

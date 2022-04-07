@@ -51,4 +51,28 @@ class UserController extends Controller
             return redirect('/dashboard');
         }
     }
+
+    // Update User Details APIs
+    public function updateUserDetailAPI(Request $request)
+    {
+        if(Auth::check())
+        {
+            $user_detail = User::where('id',Auth::id())->first();
+            $user_detail->name = $request->input('fname');
+            $user_detail->lname = $request->input('lname');
+            $user_detail->phone = $request->input('phone');
+            $user_detail->address1 = $request->input('address1');
+            $user_detail->address2 = $request->input('address2');
+            $user_detail->country = $request->input('country');
+            $user_detail->city = $request->input('city');
+            $user_detail->state = $request->input('state');
+            $user_detail->zipcode = $request->input('zipcode');
+            $user_detail->update();
+            return response()->json(['success' => 'User Detail update successfully']);
+        }
+        else
+        {
+            return response()->json(['error' => 'User not found']);
+        }
+    }
 }
