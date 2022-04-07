@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Administrator\CategoryController;
 use App\Http\Controllers\Administrator\ProductController;
 use App\Http\Controllers\Frontend\UserController;
+use App\Http\Controllers\Frontend\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,10 @@ Route::middleware(['auth:sanctum', 'type.user'])->group(function () {
     Route::get('dashboard', [UserController::class, 'userDashboardAPI']);
     // Update user detail
     Route::post('update-user-detail', [UserController::class, 'updateUserDetailAPI']);
+    // Get cart
+    Route::get('cart', [CartController::class, 'viewCartAPI']);
+    // Add to cart
+    Route::post('add-to-cart', [CartController::class, 'addProductCartAPI']);
 
 
     // Logout (User)
