@@ -114,6 +114,25 @@ class CartController extends Controller
         }
     }
 
+    // Delete product cart based on ID
+    public function deleteProductCartAPI($id)
+    {
+        if(Auth::check())
+        {
+            $prod_id = $id;
+            if(Cart::where("prod_id",$prod_id)->where('user_id',Auth::id())->exists())
+            {
+                $cartItem = Cart::where("prod_id",$prod_id)->where('user_id',Auth::id())->first();
+                $cartItem->delete();
+                return response()->json(['status'=>"Product deleted successfully",'status_type'=>"warning"]);
+            }
+        }
+        else
+        {
+            return response()->json(['status'=>"Please Login to Continue",'status_type'=>"warning"]);
+        }
+    }
+
     public function updateProductCart(Request $request)
     {
         $product_id = $request->input('prod_id');

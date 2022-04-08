@@ -68,6 +68,8 @@ Route::middleware(['auth:sanctum', 'type.user'])->group(function () {
     Route::get('cart', [CartController::class, 'viewCartAPI']);
     // Add to cart
     Route::post('add-to-cart', [CartController::class, 'addProductCartAPI']);
+    // Delete cart
+    Route::delete('delete-cart/{id}', [CartController::class, 'deleteProductCartAPI']);
 
 
     // Logout (User)
